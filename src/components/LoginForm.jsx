@@ -16,11 +16,11 @@ const LoginForm = () => {
   }, [data, router]);
 
   const [form, setForm] = useState({
-    email: "",
+    username: "",
     password: "",
   });
 
-  const { email, password } = form
+  const { username, password } = form
   
   async function handleGoogleSignIn() {
     await signIn("google", { callbackUrl: process.env.NEXTAUTH_URL });
@@ -32,7 +32,7 @@ const LoginForm = () => {
 
   async function handleCredentialSignIn() {
     await signIn("credentials", {
-      email,
+      username,
       password,
       callbackUrl: process.env.NEXTAUTH_URL,
     });
@@ -44,14 +44,13 @@ const LoginForm = () => {
   }
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(form);
   }
   return (
     <form onSubmit={handleSubmit} className="grid gap-y-10">
       <Input
-        name="email"
-        type="email"
-        placeholder="Email"
+        name="username"
+        type="text"
+        placeholder="Username"
         onChange={handleChangeInput}
       />
       <Input

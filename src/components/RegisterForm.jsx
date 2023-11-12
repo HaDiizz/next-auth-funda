@@ -5,12 +5,12 @@ import { Input } from "./ui/input";
 
 const RegisterForm = () => {
   const [form, setForm] = useState({
-    name: "",
-    email: "",
+    username: "",
+    fullName: "",
     password: "",
     confirm_password: "",
   });
-  const { name, email, password, confirm_password } = form;
+  const { username, fullName, password, confirm_password } = form;
   function handleChangeInput(e) {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
@@ -25,8 +25,8 @@ const RegisterForm = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          name,
-          email,
+          username,
+          fullName,
           password,
         }),
       });
@@ -37,15 +37,15 @@ const RegisterForm = () => {
   return (
     <form onSubmit={handleSubmit} className="grid gap-y-10">
       <Input
-        name="name"
+        name="username"
         type="text"
-        placeholder="Name"
+        placeholder="Username"
         onChange={handleChangeInput}
       />
       <Input
-        name="email"
-        type="email"
-        placeholder="Email"
+        name="fullName"
+        type="text"
+        placeholder="Full Name"
         onChange={handleChangeInput}
       />
       <Input

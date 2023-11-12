@@ -74,3 +74,45 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+h1 {
+  font-size: 48px !important;
+}
+
+h2 {
+  font-size: 36px !important;
+}
+
+h3 {
+  font-size: 24px !important;
+}
+
+h4 {
+  font-size: 18px !important;
+}
+
+h5 {
+  font-size: 14px !important;
+}
+
+h6 {
+  font-size: 12px !important;
+}
+
+mark {
+  background-color: #ffe066;
+  border-radius: 0.25em;
+  box-decoration-break: clone;
+  padding: 0.125em 4px;
+}
+
+.tiptap.ProseMirror {
+  outline: none;
+}
+
+.is-active {
+  padding: 0.5rem 0.7rem;
+  background-color: #dadada !important;
+  border-radius: 10px;
+}

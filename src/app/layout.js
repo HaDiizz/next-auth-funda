@@ -4,6 +4,8 @@ import Navbar from "@/components/Navbar";
 import AuthProvider from "@/providers/AuthProvider";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import Providers from "@/providers/providers";
+// import useLocalStorage from "@/hooks/use-local-storage";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,13 +15,14 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
+  // const [font, setFont] = useLocalStorage("novel__font", "Default");
   const session = await getServerSession(authOptions);
   return (
     <html lang="en">
       <body suppressHydrationWarning={true} className={inter.className}>
         <Navbar />
         <main className="px-10">
-          <AuthProvider session={session}>{children}</AuthProvider>
+          <Providers session={session}>{children}</Providers>
         </main>
       </body>
     </html>

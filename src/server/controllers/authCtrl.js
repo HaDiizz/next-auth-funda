@@ -1,22 +1,33 @@
-import User from '@/server/models/userModels'
-import bcrypt from 'bcryptjs'
+import User from "@/server/models/userModel";
+import { NextResponse } from "next/server";
+import connectDB from "@/server/database/mongodb";
 
-export const register = async (req, res) => {
-    try {
-        const { name, email, password } = req.body
-        var user = await User.findOne({ email })
-        if (user) {
-            return res.send('User already exit')
-        }
-        user = await new User({ name, email, password })
-
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        user.password = hashedPassword
-
-        await user.save()
-        res.send('Registered Success')
-    } catch (err) {
-        res.status(400).send('Register failed')
+export const register = async (req) => {
+  try {
+    const { username, fullName, email, provider, image, emailVerified } = req;
+    await connectDB();
+    const user = await User.findOne({ email, provider });
+    if (user) {
+      return NextResponse.json(
+        { message: "User already exit." },
+        { status: 400 }
+      );
     }
-}
+    await User.create({
+      username,
+      fullName,
+      email,
+      password: email + "&" + username,
+      provider,
+      image,
+      emailVerified,
+    });
+
+    return NextResponse.json({ message: "User registered." }, { status: 201 });
+  } catch (error) {
+    return NextResponse.json(
+      { message: "An error occurred while registering the user.", error },
+      { status: 500 }
+    );
+  }
+};

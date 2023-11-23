@@ -1,7 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
+@import url('../styles/stars.css');
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -115,4 +117,13 @@ mark {
   padding: 0.5rem 0.7rem;
   background-color: #dadada !important;
   border-radius: 10px;
+}
+
+button:disabled {
+  color: rgba(90, 90, 90, 0.668);
+  opacity: 1;
+}
+
+canvas {
+  height: 100vh !important;
 }

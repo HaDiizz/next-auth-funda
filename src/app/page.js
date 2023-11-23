@@ -170,8 +170,8 @@ export default function Home() {
   useEffect(() => {
     const handleImageInsert = ({ editor }) => {
       const contentHTML = editor.getHTML();
-      const base64ImageCount = countBase64Images(contentHTML);
-      if (base64ImageCount > 3) {
+      const checkBase64ImageCount = countBase64Images(contentHTML);
+      if (checkBase64ImageCount > 3) {
         editor.commands.undo();
         alert("You can upload 3 images")
       } else {
@@ -206,13 +206,13 @@ export default function Home() {
     }
   }, [editor, defaultValue, content, hydrated, disableLocalStorage]);
 
-  const debouncedEditorState = useDebounce(editorState, 500);
-  useEffect(() => {
-    if (debouncedEditorState === "<p></p>") return;
-  }, [debouncedEditorState]);
+  // const debouncedEditorState = useDebounce(editorState, 500);
+  // useEffect(() => {
+  //   if (debouncedEditorState === "<p></p>") return;
+  // }, [debouncedEditorState]);
 
   return (
-    <>
+    <div className="container">
       <h1 className="text-red-500">
         Hello World {session ? <User session={session} /> : "GUEST"}
       </h1>
@@ -230,6 +230,6 @@ export default function Home() {
         saveStatus={saveStatus}
       />
       {/* <Editor/> */}
-    </>
+    </div>
   );
 }

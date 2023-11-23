@@ -21,7 +21,7 @@ export default async function RootLayout({ children }) {
     <html lang="en">
       <body suppressHydrationWarning={true} className={inter.className}>
         <Navbar />
-        <main className="px-10">
+        <main className="">
           <Providers session={session}>{children}</Providers>
         </main>
       </body>

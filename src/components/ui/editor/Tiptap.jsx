@@ -153,7 +153,7 @@ const Tiptap = ({ editor, defaultValue, disableLocalStorage, hydrated, content, 
     <>
       {editor && <TipTapMenuBar editor={editor} />}
       {/* <BubbleMenuList editor={editor} /> */}
-      <EditorBubbleMenu editor={editor} />
+      {editor && <EditorBubbleMenu editor={editor} />}
       {editor?.isActive("image") && <ImageResizer editor={editor} />}
       <div className="relative w-full">
         <div className="absolute right-5 top-5 z-10 mb-5 rounded-lg bg-stone-100 px-2 py-1 text-sm text-stone-400">

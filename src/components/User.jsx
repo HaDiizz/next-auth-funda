@@ -5,6 +5,7 @@ const User = ({ session }) => {
   return (
     <div>
         <h1>Logged In</h1>
+        <h5>{session.user._id}</h5>
         <h5>{session.user.username}</h5>
         <h5>{session.user.fullName}</h5>
         <h5>{session.user.email}</h5>

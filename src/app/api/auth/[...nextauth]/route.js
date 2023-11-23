@@ -6,6 +6,7 @@ import User from "@/server/models/userModel";
 import connectDB from "@/server/database/mongodb";
 import bcrypt from "bcryptjs";
 import { register } from "@/server/controllers/authCtrl";
+import { findOneUserByEmailAndProvider } from "@/server/helpers/user";
 
 connectDB();
 
@@ -13,6 +14,7 @@ export const authOptions = {
   session: {
     jwt: true,
     strategy: "jwt",
+    maxAge: 7 * 24 * 60 * 60, //7days
   },
   providers: [
     CredentialsProvider({
@@ -45,8 +47,11 @@ export const authOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      profile(profile) {
+      async profile(profile) {
+        // const response = await findOneUserByEmailAndProvider({ provider: "google", email: profile.email })
+        // console.log(response);
         return {
+          // _id: response.user._id,
           id: profile.sub,
           username: profile.given_name,
           fullName: profile.name,
@@ -54,6 +59,7 @@ export const authOptions = {
           image: profile.picture,
           role: profile.role ?? "user",
           emailVerified: profile.email_verified,
+          provider: "google",
         };
       },
     }),
@@ -69,6 +75,7 @@ export const authOptions = {
           image: profile.avatar_url,
           role: profile.role ?? "user",
           emailVerified: true,
+          provider: "github",
         };
       },
     }),
@@ -82,6 +89,7 @@ export const authOptions = {
         provider: account.provider,
         image: user.image,
         emailVerified: user.emailVerified,
+        provider: "github",
       };
       if (account.provider === "google" || account.provider === "github") {
         register(req);
@@ -99,11 +107,12 @@ export const authOptions = {
       return { ...token, ...user };
     },
     async session({ session, token }) {
-      session.user = token;
+      const response = await findOneUserByEmailAndProvider({ provider: token.provider, email: token.email })
+      session.user = response.user;
 
-      if (!token.id) {
-        session.user.id = token.sub;
-      }
+      // if (!token.id) {
+      //   session.user.id = token.sub;
+      // }
       if (session.user) return session;
     },
   },

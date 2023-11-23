@@ -107,66 +107,68 @@ export const EditorBubbleMenu = (props) => {
   const [isTableOptionOpen, setIsTableOptionOpen] = useState(false);
 
   return (
-    <BubbleMenu
-      {...bubbleMenuProps}
-      className="novel-flex novel-w-fit novel-divide-x novel-divide-stone-200 novel-rounded novel-border novel-border-stone-200 novel-bg-white novel-shadow-xl"
-    >
-      <NodeSelector
-        editor={props.editor}
-        isOpen={isNodeSelectorOpen}
-        setIsOpen={() => {
-          setIsNodeSelectorOpen(!isNodeSelectorOpen);
-          setIsColorSelectorOpen(false);
-          setIsLinkSelectorOpen(false);
-          setIsTableOptionOpen(false);
-        }}
-      />
-      <LinkSelector
-        editor={props.editor}
-        isOpen={isLinkSelectorOpen}
-        setIsOpen={() => {
-          setIsLinkSelectorOpen(!isLinkSelectorOpen);
-          setIsColorSelectorOpen(false);
-          setIsNodeSelectorOpen(false);
-          setIsTableOptionOpen(false);
-        }}
-      />
-      <div className="novel-flex">
-        {items.map((item, index) => (
-          <button
-            key={index}
-            onClick={item.command}
-            className="novel-p-2 novel-text-stone-600 hover:novel-bg-stone-100 active:novel-bg-stone-200"
-            type="button"
-          >
-            <item.icon
-              className={cn("novel-h-4 novel-w-4", {
-                "novel-text-blue-500": item.isActive(),
-              })}
-            />
-          </button>
-        ))}
-      </div>
-      <ColorSelector
-        editor={props.editor}
-        isOpen={isColorSelectorOpen}
-        setIsOpen={() => {
-          setIsColorSelectorOpen(!isColorSelectorOpen);
-          setIsNodeSelectorOpen(false);
-          setIsLinkSelectorOpen(false);
-          setIsTableOptionOpen(false);
-        }}
-      />
-     <TableOptions
-      editor={props.editor}
-      isOpen={isTableOptionOpen}
-      setIsOpen={() => {
-        setIsTableOptionOpen(!isTableOptionOpen);
-        setIsColorSelectorOpen(false);
-        setIsNodeSelectorOpen(false);
-        setIsLinkSelectorOpen(false);
-      }}
-     />
-    </BubbleMenu>
+    <>
+      <BubbleMenu
+        {...bubbleMenuProps}
+        className="flex w-fit divide-x divide-stone-200 rounded border border-stone-200 bg-white shadow-xl"
+      >
+        <NodeSelector
+          editor={props.editor}
+          isOpen={isNodeSelectorOpen}
+          setIsOpen={() => {
+            setIsNodeSelectorOpen(!isNodeSelectorOpen);
+            setIsColorSelectorOpen(false);
+            setIsLinkSelectorOpen(false);
+            setIsTableOptionOpen(false);
+          }}
+        />
+        <LinkSelector
+          editor={props.editor}
+          isOpen={isLinkSelectorOpen}
+          setIsOpen={() => {
+            setIsLinkSelectorOpen(!isLinkSelectorOpen);
+            setIsColorSelectorOpen(false);
+            setIsNodeSelectorOpen(false);
+            setIsTableOptionOpen(false);
+          }}
+        />
+        <div className="flex">
+          {items.map((item, index) => (
+            <button
+              key={index}
+              onClick={item.command}
+              className="p-2 text-stone-600 hover:bg-stone-100 active:bg-stone-200"
+              type="button"
+            >
+              <item.icon
+                className={cn("h-4 w-4", {
+                  "text-blue-500": item.isActive(),
+                })}
+              />
+            </button>
+          ))}
+        </div>
+        <ColorSelector
+          editor={props.editor}
+          isOpen={isColorSelectorOpen}
+          setIsOpen={() => {
+            setIsColorSelectorOpen(!isColorSelectorOpen);
+            setIsNodeSelectorOpen(false);
+            setIsLinkSelectorOpen(false);
+            setIsTableOptionOpen(false);
+          }}
+        />
+        <TableOptions
+          editor={props.editor}
+          isOpen={isTableOptionOpen}
+          setIsOpen={() => {
+            setIsTableOptionOpen(!isTableOptionOpen);
+            setIsColorSelectorOpen(false);
+            setIsNodeSelectorOpen(false);
+            setIsLinkSelectorOpen(false);
+          }}
+        />
+      </BubbleMenu>
+    </>
   );
 };
